@@ -1,6 +1,7 @@
 package app.aluracursos.challenge_foro_alura.controller;
 
 import app.aluracursos.challenge_foro_alura.domain.respuesta.*;
+import app.aluracursos.challenge_foro_alura.domain.topico.Topico;
 import app.aluracursos.challenge_foro_alura.domain.topico.TopicoRepository;
 import app.aluracursos.challenge_foro_alura.domain.usuario.UsuarioRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -55,11 +56,16 @@ public class RespuestaController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DatosLimitadosRespuesta> actualizarSolucionRespuesta(@RequestBody DatosSolucionRespuesta datos){
+        Topico topico = topicoRepository.getReferenceById(datos.topicoId());
+        if (topico.getStatus() == "Cerrado"){
+            System.out.println("El tópico ya se encuentra cerrado, pero puede elegir más de una solución.");
+        }
         Respuesta respuesta = respuestaRepository.getReferenceById(datos.respuestaId());
         if (!topicoRepository.getReferenceById(datos.topicoId()).getUsuario().getId().equals(datos.usuarioId())) {
             return ResponseEntity.badRequest().build();
         }
-        respuesta.actualizarSolucion(datos.solucion());
+        respuesta.actualizarSolucion();
+        topico.actualizarStatus(respuesta.getSolucion());
         return ResponseEntity.ok(new DatosLimitadosRespuesta(respuesta));
     }
 

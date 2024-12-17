@@ -57,7 +57,7 @@ public class Respuesta {
 
     }
 
-    public void actualizarSolucion(Boolean solucion) {
-        this.solucion = solucion;
+    public void actualizarSolucion() {
+        this.solucion = true;
     }
 }

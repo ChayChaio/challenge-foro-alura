@@ -3,6 +3,7 @@ package app.aluracursos.challenge_foro_alura.controller;
 import app.aluracursos.challenge_foro_alura.domain.respuesta.RespuestaRepository;
 import app.aluracursos.challenge_foro_alura.domain.topico.*;
 import app.aluracursos.challenge_foro_alura.domain.usuario.UsuarioRepository;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,9 @@ public class TopicoController {
         return ResponseEntity.ok(validar.topicoPorId(id));
     }
 
-    @GetMapping("/buscar")
-    public ResponseEntity<List<DatosDevolucionPorTopico>> buscarTopicoPorPalabraClave(@RequestBody DatosBusquedaTopicos datos){
+    @PostMapping("/buscar")
+    public ResponseEntity<List<DatosDevolucionPorTopico>> buscarTopicoPorPalabraClave(@RequestBody
+                                                                   @Schema(description = "Request para la búsqueda de tópicos") DatosBusquedaTopicos datos){
 
         if (!usuarioRepository.existsById(datos.usuarioId())){
             return ResponseEntity.notFound().build();
@@ -88,6 +90,9 @@ public class TopicoController {
                 .stream()
                 .map(t -> new DatosDevolucionPorTopico(t,respuestaRepository, usuarioRepository))
                 .toList();
+        if (datosTopicos.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(datosTopicos);
     }
 

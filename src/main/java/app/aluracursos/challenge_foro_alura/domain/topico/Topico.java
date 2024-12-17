@@ -79,6 +79,11 @@ public class Topico {
                 '}';
     }
 
+    public void actualizarStatus(Boolean solucion) {
+        if (solucion) {
+            this.status = "Cerrado";
+        }
+    }
 }
 
 

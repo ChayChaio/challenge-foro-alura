@@ -18,11 +18,13 @@ public record DatosDevolucionPorTopico(
 
         Cursos curso,
 
+        String Status,
+
         List<DatosLimitadosRespuesta> respuestas
 ) {
     public DatosDevolucionPorTopico(Topico topico, RespuestaRepository rRepository, UsuarioRepository uRepository) {
         this(topico.getId(), topico.getTitulo(), topico.getMensaje(), topico.getFechaDeCreacion(),
-                topico.getCurso(),rRepository.findAllByTopicoId(topico.getId()).stream().map(r -> new DatosLimitadosRespuesta
+                topico.getCurso(),topico.getStatus(), rRepository.findAllByTopicoId(topico.getId()).stream().map(r -> new DatosLimitadosRespuesta
                         (r.getId(), uRepository.getReferenceById
                         (topico.getUsuario().getId()).getNombre(), r.getMensaje(), r.getFechaDeCreacion(), r.getSolucion())).toList());
     }
