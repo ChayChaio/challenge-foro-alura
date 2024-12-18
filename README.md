@@ -27,13 +27,13 @@ Este proyecto es una implementación de un foro desarrollado con Java y Spring B
    - Actualizar el estado del tópico a "Cerrado" cuando tiene al menos una respuesta marcada como solución (pueden seleccionarse más de una).
 
 3. **Autenticación y autorización:**
+   - Comprobación de la contraseña hasheada del usuario, almacenada en la DB.
    - Uso de JWT (JSON Web Tokens) para asegurar el acceso a los endpoints.
-   - Roles de usuario (en desarrollo): administrador, moderador, instructor y estudiante.
 
-4. **Documentación interactiva:**
+5. **Documentación interactiva:**
    - Endpoint para probar la API con Swagger: `/swagger-ui.html`.
 
-5. **Persistencia de datos:**
+6. **Persistencia de datos:**
    - Uso de PostgreSQL como base de datos.
    - Migraciones gestionadas con Flyway.
 
