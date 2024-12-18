@@ -18,7 +18,7 @@ Este proyecto es una implementación de un foro desarrollado con Java y Spring B
 ## Características principales
 
 1. **Gestión de tópicos:**
-   - Crear, listar, actualizar y eliminar tópicos.
+   - Crear, listar, buscar tópico por id, actualizar y eliminar tópicos.
    - Buscar tópicos por palabras clave en el título o contenido.
 
 2. **Gestión de respuestas:**
@@ -52,6 +52,7 @@ Este proyecto es una implementación de un foro desarrollado con Java y Spring B
 
 ### Tópicos
 - **Listar tópicos:** `GET /topicos`
+- **Buscar tópico por id** `GET / topicos/{id}`
 - **Buscar tópicos por palabras clave:** `POST /topicos/busqueda`
 - **Crear un tópico:** `POST /topicos`
 - **Actualizar un tópico:** `PUT /topicos/{id}`
@@ -73,22 +74,31 @@ Este proyecto es una implementación de un foro desarrollado con Java y Spring B
    git clone https://github.com/ChayChaio/challenge-foro-alura.git
    cd challenge-foro-alura
    ```
+2. **Configurar las variables de entorno:**
 
-2. **Configurar la base de datos:**
-   - Crear una base de datos PostgreSQL.
-   - Configurar las credenciales en el archivo `application.properties` o `application.yml`.
+   Define las siguientes variables de entorno en tu sistema o archivo `.env`:
 
-3. **Ejecutar las migraciones:**
+   ```bash
+   DATABASE_URL=jdbc:postgresql://localhost:5432/foro
+   DATABASE_USERNAME=tu_usuario
+   DATABASE_PASSWORD=tu_contraseña
+   JWT_SECRET=tu_secreto_para_jwt
+   ```
+
+3. **Configurar la base de datos:**
+   - Crear una base de datos PostgreSQL(En este caso) con el nombre que hayas definido en DATABASE_URL.
+
+4. **Ejecutar las migraciones:**
    ```bash
    ./mvnw flyway:migrate
    ```
 
-4. **Compilar y ejecutar la aplicación:**
+5. **Compilar y ejecutar la aplicación:**
    ```bash
    ./mvnw spring-boot:run
    ```
 
-5. **Acceder a la documentación:**
+6. **Acceder a la documentación:**
    - Abrir el navegador en: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ## Pruebas
